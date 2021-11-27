@@ -1,1 +1,2 @@
-include src/config.txt
+include requirements.txt
+include tests\**

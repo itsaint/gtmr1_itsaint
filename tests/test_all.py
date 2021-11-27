@@ -91,6 +91,9 @@ class TestScheduler(unittest.TestCase):
         self.assertEqual("G-Mansion", self.app.book("10:00","11:00", no_of_people))
         self.assertEqual("", self.app.book("10:00","11:00", no_of_people))
         self.assertEqual(3,len(self.app.meetings))
+        self.assertEqual("", self.app.book("11:00","12:00", no_of_people))
+        self.assertEqual(4,len(self.app.meetings))
+
 
 if __name__ == '__main__':
     unittest.main()

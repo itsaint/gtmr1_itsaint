@@ -21,7 +21,7 @@ def main():
                     people = int(cmd.pop())
                     cmd.append(people)
                 result = getattr(scheduler_app, cmd[0].lower())(*cmd[1:])
-                print(result or "NO VACANT ROOM")
+                print(result or "NO_VACANT_ROOM")
             except Exception as e:
                 print("INCORRECT_INPUT")
 

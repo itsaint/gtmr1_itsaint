@@ -9,18 +9,14 @@ python -m msl.scheduler path-to-config.json
 import sys
 import json
 from os import path
-from typing import NamedTuple, List, Iterable, Tuple, Type, TypeVar
-from dataclasses import dataclass, field, InitVar
+from typing import  List
+from dataclasses import dataclass, field
 
-
-class SlotNotFreeException(Exception):
-    pass
 
 
 @dataclass(order=True, frozen=True)
 class Time():
     time_str: str = field(compare=True)
-    # valid_interval_mins: InitVar[int] = field(default=1)
 
     def __post_init__(self):
         try:
@@ -82,18 +78,17 @@ class Scheduler:
         self.meetings = already_booked_meetings
         self.buffer = sorted(buffer)
         Scheduler.VALID_INTERVAL = valid_interval
-        # global VALID_INTERVAL
 
     def _vacancy(self, period: TimePeriod, people: int=1) -> List[Room] :
         available_rooms = []
         if any(period.overlaps(buffer_break) for buffer_break in self.buffer):
-            # raise SlotNotFreeException(f'{period!s} clashes with cleaning hours{", ".join(map(str,self.buffer))}')
             return []
         for room in self.rooms:
             # ignore this room if it's capacity is not enough for these many people
             if room.capacity < people:
                 continue
-
+            # this room is available if no meetings are already scheduled during this period \
+            # for this room
             if not any((period.overlaps(meet.slot)
                        and (room == meet.room))
                        for meet in self.meetings):
@@ -165,7 +160,7 @@ def main(config_file_path):
             s = input("start time : ")
             e = input("end time : ")
             no_people = int(input("number of people : "))
-            room = scheduler_app.book(TimePeriod(Time(s),Time(e)), no_people)
+            room = scheduler_app.book(TimePeriod(Time(s),Time(e)), people=no_people)
             if(room):
                 print(f"successfully booked room for {no_people} people in {room}")
             else:
