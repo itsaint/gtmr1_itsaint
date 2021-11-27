@@ -154,13 +154,13 @@ def main(config_file_path):
         if(inp == "v"):
             s = input("start time : ")
             e = input("end time : ")
-            print(scheduler_app.vacant(TimePeriod(Time(s),Time(e))))
+            print(scheduler_app.vacancy(s,e))
 
         elif(inp == "b"):
             s = input("start time : ")
             e = input("end time : ")
             no_people = int(input("number of people : "))
-            room = scheduler_app.book(TimePeriod(Time(s),Time(e)), people=no_people)
+            room = scheduler_app.book(s,e, people=no_people)
             if(room):
                 print(f"successfully booked room for {no_people} people in {room}")
             else:
