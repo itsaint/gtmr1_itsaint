@@ -1,0 +1,9 @@
+{ "valid interval": 15,
+  "rooms" : {"C-Cave": 3,
+  "D-Tower": 7,
+  "G-Mansion":20},
+  "buffer" : [["09:00","09:15"],
+    ["13:15","13:45"],
+    ["18:45","19:00"]],
+  "meetings":[]
+}
